@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+
+<link href="{% static 'css/uploads.css' %}" rel="stylesheet"> 
+
+{% endblock %} 
+
+{% block content %}
+  
+  
+  <a href="{% url 'upload' %}">Upload</a>
+    
+  <p>Uploaded files:</p>
+  
+  
+  <ul>
+    {% for obj in documents %}
+    
+    <li>
+      <img src="{{ obj.image.url }}" / >
+      <div>
+       <small>(Uploaded at: {{ obj.uploaded_at }})</small>
+      </div>
+    </li>
+      
+      
+    {% endfor %}
+  </ul>
+  
+ 
+  
+{% endblock %}

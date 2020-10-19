@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+
+<link href="{% static 'css/uploads.css' %}" rel="stylesheet"> 
+
+{% endblock %} 
+
+{% block content %}
+  
+  
+  <a href="{% url 'upload' %}">Upload</a>
+    
+  <p>Uploaded files:</p>
+  
+  
+  <ul>
+    {% for obj in documents %}
+    
+    <li>
+      <img src="{{ obj.image.url }}" / >
+      <div>
+       <small>(Uploaded at: {{ obj.uploaded_at }})</small>
+      </div>
+    </li>
+      
+      
+    {% endfor %}
+  </ul>
+  
+  </br>
+  
+  <p class="info">There are two css files , one is style.css( found in static folder on the same level as manage.py  ) and uploads.css( found inside the uploads app )</p>
+  
+  </br>
+  
+  <p>The width of image is set to 200px; and "li" to list-style:none; </p>
+  
+{% endblock %}

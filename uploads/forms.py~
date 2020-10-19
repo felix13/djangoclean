@@ -1,0 +1,48 @@
+from django import forms
+from django.core.exceptions import ValidationError
+
+from uploads.models import Document
+
+
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        fields = ('first_name', 'last_name', 'image', )
+        
+ 
+    def clean_image(self):
+       
+        IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
+    
+        uploaded_image = self.cleaned_data.get("image",  False)
+        
+        extension = str(uploaded_image).split('.')[-1]
+        
+        file_type = extension.lower()
+        
+       
+        
+        if not uploaded_image:
+            raise ValidationError("please upload an Image")  # handle empty image
+      
+            
+        if file_type not in IMAGE_FILE_TYPES:
+            
+            raise ValidationError("File is not image.")
+    
+        return uploaded_image
+        
+        
+        
+          
+        
+    def clean(self):
+        first_name = self.cleaned_data.get('first_name')
+        last_name = self.cleaned_data.get('last_name')
+        
+        if first_name == last_name:
+            raise ValidationError( "First name and last name cannot be the same." )
+            
+            
+            
+            
