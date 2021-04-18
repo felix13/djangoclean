@@ -35,8 +35,9 @@ class DocumentForm(forms.ModelForm):
           
         
     def clean(self):
-        first_name = self.cleaned_data.get('first_name')
-        last_name = self.cleaned_data.get('last_name')
+        cleaned_data = super().clean()
+        first_name = cleaned_data.get('first_name')
+        last_name  = cleaned_data.get('last_name')
         
         if first_name == last_name:
             raise ValidationError( "First name and last name cannot be the same." )
